@@ -1,0 +1,100 @@
+.navbar {
+  background: rgba(31, 41, 55, 0.8);
+  /* Dark blue with transparency */
+  padding: 0px 0px;
+  /* Reduced padding to make the navbar smaller */
+  border-radius: 50px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  /* Softer shadow */
+  position: sticky;
+  top: 1rem;
+  z-index: 10;
+  margin: 1rem auto;
+  width: 90%;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  /* Glassy effect */
+}
+
+.navbar img {
+  max-height: 50px;
+  /* Adjust the height as needed */
+  width: auto;
+  /* Maintain aspect ratio */
+  object-fit: contain;
+  /* Ensure the image fits within the specified height */
+  margin: 0 10px;
+  /* Add some spacing around the image */
+}
+
+.navbar:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(1.02);
+  /* Slight scaling effect */
+}
+
+.nav-link {
+  color: #ffffff;
+  transition: all 0.3s ease;
+  /* Smooth transition for hover effects */
+  padding: 10px 20px;
+  /* Maintain good spacing */
+  border-radius: 20px;
+  /* Match the navbar's rounded corners */
+  background: transparent;
+  /* Make it blend with the navbar */
+  font-weight: 500;
+  /* Slightly lighter font weight for elegance */
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: none;
+  /* Remove shadow for a cleaner look */
+
+}
+
+.nav-link:last-child {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  /* Add a subtle border */
+}
+
+
+.nav-link:hover {
+  color: #ffffff;
+  background: linear-gradient(90deg, rgba(119, 115, 206, 0.8), rgba(31, 41, 55, 0.8));
+  /* Vibrant gradient */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(119, 115, 206, 0.8);
+  /* Add glowing shadow */
+  transform: scale(1.1);
+  /* Slight scaling for hover effect */
+  border-color: rgba(255, 255, 255, 0.6);
+  /* Brighten the border */
+  animation: pop 0.3s ease;
+  /* Add a quick pop animation */
+}
+
+/* Keyframes for glowing effect */
+@keyframes glow {
+  0% {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+
+  100% {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Keyframes for pop effect */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
