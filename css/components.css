@@ -1,0 +1,102 @@
+.card {
+  background: #374151;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.input-field {
+  background: #4b5563;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+.input-field:focus {
+  background: #6b7280;
+  outline: none;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background: #4b5563;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+.expense-paid {
+  background: #2d3748;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.total {
+  font-weight: bold;
+  color: #60a5fa;
+}
+
+.calendar-placeholder {
+  color: #6b7280;
+  text-align: center;
+}
+
+.calendar-date {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 1rem 0 0.5rem;
+}
+
+.calendar-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #4b5563;
+}
+
+.calendar-description {
+  color: #ffffff;
+}
+
+.calendar-amount {
+  color: #ffffff;
+}

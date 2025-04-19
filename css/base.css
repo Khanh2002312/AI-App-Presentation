@@ -1,0 +1,19 @@
+body {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1f2937 50%, #111827 100%);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+section {
+  background: rgba(31, 41, 55, 0.9); /* Slightly transparent dark background */
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); /* Softer shadow */
+  padding: 1.5rem;
+  backdrop-filter: blur(8px); /* Adds a subtle glassy effect */
+}
