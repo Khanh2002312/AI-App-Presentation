@@ -66,62 +66,84 @@ function updatePayment(rmIndex, exIndex, amount) {
   saveData();
   displayResults();
 }
-
 function displayResults() {
   if (!resultsDiv) return;
 
+  // Sync profile back into roommates[0]
   const savedProfile = JSON.parse(localStorage.getItem('profile'));
   const userName     = savedProfile?.name || "You";
-  const updatedProfile = {
+  roommates[0] = {
     ...savedProfile,
     expenses: roommates[0]?.expenses || []
   };
-  roommates[0] = updatedProfile;
   saveData();
 
   resultsDiv.innerHTML = '';
   const filter = categoryFilter?.value || 'All';
 
-  roommates.forEach((rm, index) => {
+  roommates.forEach((rm, rmIndex) => {
     const card = document.createElement('div');
     card.className = 'card';
 
+    // Name & contact (unchanged)…
     const nameEl = document.createElement('strong');
-    nameEl.textContent = rm.name || (index === 0 ? userName : 'Unnamed Roommate');
+    nameEl.textContent = rm.name || (rmIndex === 0 ? userName : 'Unnamed');
     card.appendChild(nameEl);
-
     const contact = document.createElement('div');
     contact.className = 'text-gray-400';
-    contact.innerHTML = `
-      ${rm.email ? '📧 ' + rm.email + '<br>' : ''}
-      ${rm.phone ? '📞 ' + rm.phone : ''}
-    `;
+    contact.innerHTML = `${rm.email ? '📧 ' + rm.email + '<br>' : ''}${rm.phone ? '📞 ' + rm.phone : ''}`;
     card.appendChild(contact);
 
+    // Each expense line
     rm.expenses
       .filter(ex => filter === 'All' || ex.category === filter)
       .forEach((ex, exIndex) => {
         const line = document.createElement('div');
         line.className = 'expense-paid flex justify-between items-center space-x-2 mt-2';
-        line.textContent = `${ex.description} (Due: ${ex.dueDate || "N/A"}) - $${ex.amount.toFixed(2)}`;
-        // payment correction UI
-        const wrapper = document.createElement('div');
-        wrapper.className = 'flex items-center space-x-2';
+
+        // Description label
+        const label = document.createElement('span');
+        label.textContent = `${ex.description} (Due: ${ex.dueDate || "N/A"}) - $${ex.amount.toFixed(2)}`;
+        line.appendChild(label);
+
+        // Input + Correct + Remove buttons container
+        const controls = document.createElement('div');
+        controls.className = 'flex items-center space-x-2';
+
+        // Paid‑amount input
         const input = document.createElement('input');
-        input.type = 'number'; input.step = '0.01'; input.min = '0';
+        input.type = 'number';
+        input.step = '0.01';
+        input.min = '0';
         input.max = ex.amount.toFixed(2);
         input.value = ex.paidAmount?.toFixed(2) || '0.00';
-        input.className = 'input-field w-32';
-        const btn = document.createElement('button');
-        btn.className = 'btn btn-secondary';
-        btn.textContent = 'Correct';
-        btn.onclick = () => updatePayment(index, exIndex, input.value);
-        wrapper.appendChild(input);
-        wrapper.appendChild(btn);
-        line.appendChild(wrapper);
+        input.className = 'input-field w-24';
+        controls.appendChild(input);
+
+        // Correct button
+        const correctBtn = document.createElement('button');
+        correctBtn.textContent = 'Correct';
+        correctBtn.className = 'btn btn-secondary';
+        correctBtn.onclick = () => updatePayment(rmIndex, exIndex, input.value);
+        controls.appendChild(correctBtn);
+
+        // ← New Remove button
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remove';
+        removeBtn.className = 'btn btn-danger';
+        removeBtn.onclick = () => {
+          // remove that expense and re-render
+          roommates[rmIndex].expenses.splice(exIndex, 1);
+          saveData();
+          displayResults();
+        };
+        controls.appendChild(removeBtn);
+
+        line.appendChild(controls);
         card.appendChild(line);
       });
 
+    // Totals (unchanged)…
     const total = document.createElement('div');
     total.className = 'total mt-4';
     total.textContent = `Total Owed: $${getTotal(rm.expenses).toFixed(2)} (Unpaid: $${getUnpaidTotal(rm.expenses).toFixed(2)})`;
